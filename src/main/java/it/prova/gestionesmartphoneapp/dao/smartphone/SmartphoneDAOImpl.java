@@ -3,6 +3,7 @@ package it.prova.gestionesmartphoneapp.dao.smartphone;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import it.prova.gestionesmartphoneapp.model.Smartphone;
 
@@ -48,4 +49,12 @@ public class SmartphoneDAOImpl implements SmartphoneDAO{
 		entityManager.remove(entityManager.merge(o));
 	}
 
+	public void updateOS(String nuovaVersione, Smartphone o) throws Exception {
+		if (o == null) {
+			throw new Exception("Problema valore in input");
+		}
+		
+		o.setVersioneOS(nuovaVersione);
+		o = entityManager.merge(o);
+	}
 }

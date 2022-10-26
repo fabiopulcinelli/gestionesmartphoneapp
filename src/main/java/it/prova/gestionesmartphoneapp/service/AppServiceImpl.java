@@ -58,6 +58,9 @@ public class AppServiceImpl implements AppService{
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
 		try {
+			// questo è come il MyConnection.getConnection()
+			entityManager.getTransaction().begin();
+			
 			// uso l'injection per il dao
 			appDAO.setEntityManager(entityManager);
 
@@ -79,6 +82,9 @@ public class AppServiceImpl implements AppService{
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
 		try {
+			// questo è come il MyConnection.getConnection()
+			entityManager.getTransaction().begin();
+			
 			// uso l'injection per il dao
 			appDAO.setEntityManager(entityManager);
 

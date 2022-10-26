@@ -16,6 +16,8 @@ public interface SmartphoneService {
 
 	public void rimuovi(Long smartphoneId) throws Exception;
 	
+	public void aggiornaOS(String nuovaVersione, Smartphone o) throws Exception;
+	
 	// per injection
 	public void setSmartphoneDAO(SmartphoneDAO smartphoneDAO);
 }

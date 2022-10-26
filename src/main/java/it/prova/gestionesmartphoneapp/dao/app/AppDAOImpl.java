@@ -16,31 +16,35 @@ public class AppDAOImpl implements AppDAO{
 	
 	@Override
 	public List<App> list() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.createQuery("from App", App.class).getResultList();
 	}
 
 	@Override
 	public App get(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.find(App.class, id);
 	}
 
 	@Override
 	public void update(App o) throws Exception {
-		// TODO Auto-generated method stub
-		
+		if (o == null) {
+			throw new Exception("Problema valore in input");
+		}
+		o = entityManager.merge(o);
 	}
 
 	@Override
 	public void insert(App o) throws Exception {
-		// TODO Auto-generated method stub
-		
+		if (o == null) {
+			throw new Exception("Problema valore in input");
+		}
+		entityManager.persist(o);
 	}
 
 	@Override
 	public void delete(App o) throws Exception {
-		// TODO Auto-generated method stub
-		
+		if (o == null) {
+			throw new Exception("Problema valore in input");
+		}
+		entityManager.remove(entityManager.merge(o));
 	}
 }

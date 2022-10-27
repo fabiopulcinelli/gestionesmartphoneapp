@@ -3,6 +3,7 @@ package it.prova.gestionesmartphoneapp.service;
 import java.util.List;
 
 import it.prova.gestionesmartphoneapp.dao.smartphone.SmartphoneDAO;
+import it.prova.gestionesmartphoneapp.model.App;
 import it.prova.gestionesmartphoneapp.model.Smartphone;
 
 public interface SmartphoneService {

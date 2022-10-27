@@ -1,10 +1,13 @@
 package it.prova.gestionesmartphoneapp.dao.smartphone;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import it.prova.gestionesmartphoneapp.model.App;
 import it.prova.gestionesmartphoneapp.model.Smartphone;
 
 public class SmartphoneDAOImpl implements SmartphoneDAO{

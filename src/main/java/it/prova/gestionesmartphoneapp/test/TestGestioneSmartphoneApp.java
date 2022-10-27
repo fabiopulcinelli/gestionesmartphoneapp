@@ -34,6 +34,12 @@ public class TestGestioneSmartphoneApp {
 			
 			testAggiornaOS(smartphoneServiceInstance);
 			
+			testAggiornaApp(appServiceInstance);
+			
+			testDisinstallaAppDaSmartphoneAppService(appServiceInstance, smartphoneServiceInstance);
+			
+			testRimozioneSmartphone(appServiceInstance, smartphoneServiceInstance);
+			
 			System.out.println(
 					"****************************** fine batteria di test ********************************************");
 			System.out.println(
@@ -73,6 +79,7 @@ public class TestGestioneSmartphoneApp {
 		System.out.println(".......testInserimentoNuovoSmartphone fine: PASSED.............");
 	}
 	
+	// COME INSTALLAZIONE DI APP A SMARTPHONE
 	private static void testCollegaSmartphoneAApp(AppService appServiceInstance, SmartphoneService smartphoneServiceInstance)
 			throws Exception {
 		System.out.println(".......testCollegaSmartphoneAApp inizio.............");
@@ -110,5 +117,65 @@ public class TestGestioneSmartphoneApp {
 			throw new RuntimeException("testAggiornaOS fallito ");
 		
 		System.out.println(".......testAggiornaOS fine: PASSED.............");
+	}
+	
+	public static void testAggiornaApp(AppService appServiceInstance) throws Exception {
+		System.out.println(".......testAggiornaApp inizio.............");
+		
+		//prendo il primo smartphone e gli aggiorno il sistem operativo
+		App appDaAggiornare = appServiceInstance.listAll().get(0);
+		if (appDaAggiornare.getId() == null)
+			throw new RuntimeException("testAggiornaApp fallito ");
+		
+		appServiceInstance.aggiornaApp("0.1.1", appDaAggiornare);
+		appServiceInstance.aggiorna(appDaAggiornare);
+		
+		if( !appServiceInstance.listAll().get(0).getVersione().equals("0.1.1"))
+			throw new RuntimeException("testAggiornaApp fallito ");
+		
+		System.out.println(".......testAggiornaApp fine: PASSED.............");
+	}
+	
+	public static void testDisinstallaAppDaSmartphoneAppService(AppService appServiceInstance, SmartphoneService smartphoneServiceInstance)
+			throws Exception {
+		System.out.println(".......testDisinstallaAppDaSmartphoneAppService inizio.............");
+
+		App appInstance = new App("YouTube",new Date(), new Date(), "0.0.1");
+		appServiceInstance.inserisciNuovo(appInstance);
+		if (appInstance.getId() == null)
+			throw new RuntimeException("testCollegaSmartphoneAApp fallito: inserimento cd non riuscito ");
+
+		Smartphone nuovoSmartphone = new Smartphone("Samsung", "Modello", 10, "0.0.1");
+		smartphoneServiceInstance.inserisciNuovo(nuovoSmartphone);
+		if (nuovoSmartphone.getId() == null)
+			throw new RuntimeException("testCollegaSmartphoneAApp fallito: genere non inserito ");
+		appServiceInstance.aggiungiSmartphone(appInstance, nuovoSmartphone);
+		
+		appServiceInstance.disinstalla(nuovoSmartphone, appInstance);
+		
+		System.out.println(".......testDisinstallaAppDaSmartphoneAppService inizio.............");
+	}
+	
+	public static void testRimozioneSmartphone(AppService appServiceInstance, SmartphoneService smartphoneServiceInstance)
+			throws Exception {
+		System.out.println(".......testRimozioneSmartphone inizio.............");
+		
+		App appInstance1 = new App("Camera",new Date(), new Date(), "0.0.1");
+		appServiceInstance.inserisciNuovo(appInstance1);
+		if (appInstance1.getId() == null)
+			throw new RuntimeException("testCollegaSmartphoneAApp fallito: inserimento cd non riuscito ");
+		App appInstance2 = new App("Galleria",new Date(), new Date(), "0.0.1");
+		appServiceInstance.inserisciNuovo(appInstance2);
+		if (appInstance2.getId() == null)
+			throw new RuntimeException("testCollegaSmartphoneAApp fallito: inserimento cd non riuscito ");
+
+		Smartphone nuovoSmartphone = new Smartphone("Huawei", "Modello", 10, "0.0.1");
+		smartphoneServiceInstance.inserisciNuovo(nuovoSmartphone);
+		if (nuovoSmartphone.getId() == null)
+			throw new RuntimeException("testCollegaSmartphoneAApp fallito: genere non inserito ");
+		
+		smartphoneServiceInstance.rimuovi(nuovoSmartphone.getId());
+		
+		System.out.println(".......testRimozioneSmartphone inizio.............");
 	}
 }

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import it.prova.gestionesmartphoneapp.dao.EntityManagerUtil;
 import it.prova.gestionesmartphoneapp.dao.smartphone.SmartphoneDAO;
+import it.prova.gestionesmartphoneapp.model.App;
 import it.prova.gestionesmartphoneapp.model.Smartphone;
 
 public class SmartphoneServiceImpl implements SmartphoneService{

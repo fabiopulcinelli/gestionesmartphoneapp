@@ -161,4 +161,47 @@ public class AppServiceImpl implements AppService{
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 	}
+
+	@Override
+	public void aggiornaApp(String nuovaVersione, App o) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			appDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			appDAO.updateApp(nuovaVersione, o);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+	}
+	
+	@Override
+	public void disinstalla(Smartphone tel, App app) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			// questo è come il MyConnection.getConnection()
+			entityManager.getTransaction().begin();
+
+			// uso l'injection per il dao
+			appDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			appDAO.uinstall(tel, app);
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+	}
 }

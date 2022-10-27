@@ -17,6 +17,10 @@ public interface AppService {
 
 	public void rimuovi(Long appId) throws Exception;
 	
+	public void aggiornaApp(String nuovaVersione, App o) throws Exception;
+	
+	public void disinstalla(Smartphone tel, App app) throws Exception;
+	
 	// per injection
 	public void setAppDAO(AppDAO appDAO);
 
